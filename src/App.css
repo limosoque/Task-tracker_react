@@ -55,6 +55,17 @@
   border-radius: 12px;
 }
 
+.delete_button {
+  padding: 12px 16px;
+  background-color: lightcoral;
+  border: 0px solid lightcoral;
+  border-radius: 12px;
+}
+
+:hover.delete_button {
+  background-color: red;
+}
+
 :hover.button {
   background-color: lightskyblue;
 }
