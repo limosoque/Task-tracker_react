@@ -9,16 +9,79 @@
 
 .status {
   /* Заполняем экран по ширине */
-  flex: 1;
-  padding: 20px;
+  width: calc(100% / 3);
+  padding: 20px 20px 8px 20px;
   border: 1px solid lightgrey;
+  border-radius: 42px;
   margin: 10px;
+
+  /* word-wrap: break-word;
+  box-sizing: border-box;  */
 }
 
 .task {
+  /* Ширина, чтобы текст не увеличивал ее
+  width: 422px;
+  */
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid lightgrey;
+  border-radius: 24px;
   background-color: white;
   cursor: pointer;
+}
+
+:hover.task {
+  background-color: lightblue;
+}
+
+/* Выключение срабатывания hover при нажатии на дочерний элемент */
+/* :focus-within.task {
+  pointer-events: none;
+} */
+
+.statAddTask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button {
+  padding: 12px 16px;
+  background-color: lightblue;
+  border: 0px solid lightskyblue;
+  border-radius: 12px;
+}
+
+:hover.button {
+  background-color: lightskyblue;
+}
+
+input {
+  border: 0px solid lightgrey;
+  border-radius: 8px;
+  margin-bottom: 10px;  
+  padding: 8px 8px;
+  font-size: medium;
+}
+
+.header {
+  font-size: large;
+  font-weight: bold;
+}
+
+.regular {
+  font-size: medium;
+}
+
+input:focus {
+  background-color: lightblue;
+  outline: 0px solid lightblue;
+}
+
+.text_wrapped {
+  word-wrap: break-word;
+  flex-shrink: 10;
 }
