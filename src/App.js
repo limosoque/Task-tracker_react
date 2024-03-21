@@ -2,22 +2,32 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const tasks = [{title:"Clean", task:"Wash dishes"}, {title:"Cook", task:"Pizza"}];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='taskboard'>
+      <Status title="Todo" tasks={ tasks }/>
+      <Status title="In progress" tasks={ tasks }/>
+      <Status title="Done" tasks={ tasks }/>
+    </div>
+  )
+}
+
+function Status({ title, tasks }) {
+  return (
+    <div className='status'>
+      <h2>{ title }</h2>
+      { tasks.map(task => (
+        <Task task={ task } />
+      ))}
+    </div>
+  );
+}
+
+function Task({ task }) {
+  return (
+    <div className='task'>
+      <h3>{ task.title }</h3>
+      <p>{ task.task }</p>
     </div>
   );
 }
