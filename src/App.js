@@ -1,26 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
   /* Задаем массив заданий и функцию для его изменения */
   const [tasks, setTasks] = useState({
-    todo: [{id: Date.now(), title: "Clean", task: "Wash dishes" }],
-    inProgress: [{id: Date.now(), title: "Cook", task: "Pizza" }],
-    done: []
+    todo: [],
+    inProgress: [],
+    done: [],
+    status: 'null'
   });
+
+  /* Загрузка задач из localStorage */
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem('tasks'));
+    if (savedData) {
+      console.log("SUCCESS\n" + Object.entries(savedData));
+      setTasks(savedData);
+    }
+  }, []);
+
+  /* Сохранение задач в localStorage */
+  useEffect(() => {
+    /* 
+      Проверяем, что есть задачи,
+      иначе при перзапуске будет загружен пустой массив,
+      объявленный в начале функции App
+    */
+    if (tasks.status !== 'null'/*tasks['todo'].length > 0 || tasks['inProgress'].length > 0 || tasks['done'].length > 0*/) {
+      console.log(Object.entries(tasks));
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   /* Функция добавления нового задания */
   const addTask = (newTask, status) => {
     const newTaskIded = { ...newTask, id: Date.now() };
     setTasks(oldTasks => ({
       ...oldTasks,
-      [status]: [...oldTasks[status], newTaskIded]
+      [status]: [...oldTasks[status], newTaskIded],
+      status: 'filled'
     }));
     return newTaskIded;
   };
 
   const changeTask = (changedTask, status) => {
-      setTasks(oldTasks => ({
+    setTasks(oldTasks => ({
       /* 
         Создаем новый массив, в который переносим старые задачи
         и добавляем изменненую, сравнивая по id
@@ -76,7 +100,7 @@ function Status({ title, tasks, addTask, changeTask, deleteTask }) {
   const handleSaveTask = (editedTask) => {
     changeTask(editedTask, taskStatus);
     /* Удаляем отредактированную задачу */
-    setEditingTask(null); 
+    setEditingTask(null);
   }
 
   const handleDeleteTask = (task) => {
@@ -93,6 +117,7 @@ function Status({ title, tasks, addTask, changeTask, deleteTask }) {
       </div>
       {tasks.map(task => (
         <Task
+          key={task.id}
           task={task}
           setEditingTask={setEditingTask}
           /* Сообщаем, редактируется ли задача */
@@ -131,7 +156,7 @@ function Task({ task, setEditingTask, isEditing, onSave, onDelete }) {
     return (
       <div className='task'>
         <input
-        className='header'
+          className='header'
           type="text"
           name="title"
           value={editedTask.title}
