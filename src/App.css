@@ -42,7 +42,7 @@
   pointer-events: none;
 } */
 
-.statAddTask {
+.statusAndAddTaskButton {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,4 +84,10 @@ input:focus {
 .text_wrapped {
   word-wrap: break-word;
   flex-shrink: 10;
+}
+
+.taskTitleAndDeleteButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
